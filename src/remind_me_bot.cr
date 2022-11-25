@@ -45,6 +45,7 @@ class RemindMeBot
           time = parse_remind_me(text)
           reply_status = @client.status(reply_to_id)
           @db.exec("INSERT INTO reminders (time, status_uri, username) VALUES (?, ?, ?)", time, reply_status.uri, status.account.username)
+          @client.favourite_status(status.id)
         end
       end
     end
@@ -89,7 +90,7 @@ class RemindMeBot
         reminders = Reminder.from_rs(rs)
         reminders.each do |reminder|
           @client.create_status(
-            "@#{reminder.username} at #{reminder.created_at.to_s("%m/%d/%y %M:%H")} you asked me to remind you of this: #{reminder.status_uri}",
+            "@#{reminder.username} at #{reminder.created_at.to_s("%m/%d/%y %H:%M")} you asked me to remind you of this: #{reminder.status_uri}",
             visibility: "direct"
           )
           @db.exec("DELETE FROM reminders WHERE id = ?", reminder.id)
