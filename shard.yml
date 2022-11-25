@@ -1,0 +1,25 @@
+name: remind_me_bot
+version: 0.1.0
+
+authors:
+  - your-name-here <your-email-here>
+
+targets:
+  remind_me_bot:
+    main: src/remind_me_bot.cr
+
+crystal: 1.6.2
+
+license: MIT
+
+dependencies:
+  mastodon:
+    github: watzon/mastodon.cr
+    branch: master
+  tasker:
+    github: spider-gazelle/tasker
+    version: ~> 2.0.7
+  sqlite3:
+    github: crystal-lang/crystal-sqlite3
+  dotenv:
+    github: gdotdesign/cr-dotenv
